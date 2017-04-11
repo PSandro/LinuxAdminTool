@@ -1,0 +1,15 @@
+
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+Bug-search.iml
+app/app.iml
+app/libs/
+app/src/main/res/drawable/
+/androidapp.iml
+/.idea/

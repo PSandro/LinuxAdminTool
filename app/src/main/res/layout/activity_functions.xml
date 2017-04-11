@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000">
+
+    <Button
+        android:id="@+id/button_reboot"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="reboot"
+        android:text="reboot"
+        android:background="#ed840c28"
+        android:textColor="#fff"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#4e5b6e"/>
+
+    <Button
+        android:id="@+id/button_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="update"
+        android:textColor="#fff"
+        android:background="#ed878bb9"
+        android:text="Update" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#4e5b6e"/>
+
+    <Button
+        android:id="@+id/button_upgrade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="upgrade"
+        android:textColor="#fff"
+        android:background="#ed878bb9"
+        android:text="Upgrade" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#4e5b6e"/>
+
+</LinearLayout>

@@ -189,12 +189,7 @@ public class MainActivity extends AppCompatActivity {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                popupHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        new AlertDialog.Builder(context).setMessage(message).create().show();
-                    }
-                });
+                new AlertDialog.Builder(context).setMessage(message).create().show();
             }
         });
 

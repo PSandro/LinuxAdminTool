@@ -22,7 +22,7 @@ allprojects {
 
     repositories {
         jcenter()
-        maven { url 'http://10.240.75.100:8081/repository/maven-snapshots/'}
+        maven { url 'http://84.200.223.201:8081/repository/LinuxGodMode/'}
     }
 }
 

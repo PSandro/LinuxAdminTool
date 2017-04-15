@@ -1,209 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="3dp"
-    android:background="#eeb2c1cc">
-    <LinearLayout
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dp">
+
+    <ImageView
+        android:id="@+id/statisticIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="6dp"
+        android:contentDescription="@string/icon" />
+
+    <TextView
+        android:id="@+id/statisticName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/statisticIcon"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/statisticValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CPU"
-            android:textAlignment="textStart"
-            android:textColor="#000"
-            android:textSize="27sp"
-            android:textStyle="bold"
-            android:paddingLeft="10dp"/>
-
-        <TextView
-            android:id="@+id/cpuUsagetextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="--.--%"
-            android:textAlignment="viewEnd"
-            android:textStyle="bold"
-            android:textColor="#000"
-            android:textSize="27sp"
-            android:paddingLeft="110dp"
-            android:textAppearance="@style/TextAppearance.AppCompat" />
+        android:layout_marginRight="2dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/statisticName"
+        android:gravity="right"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Host"
-            android:textAlignment="textStart"
-            android:textColor="#000"
-            android:textSize="27sp"
-            android:textStyle="bold"
-            android:paddingLeft="10dp"/>
-
-        <TextView
-            android:id="@+id/hostnametextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="fetching hostname..."
-            android:paddingLeft="90dp"
-            android:textStyle="bold"
-            android:textColor="#000"
-            android:textSize="17sp"
-
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Temp"
-            android:textAlignment="textStart"
-            android:textColor="#000"
-            android:textSize="27sp"
-            android:textStyle="bold"
-            android:paddingLeft="10dp"/>
-
-        <TextView
-            android:id="@+id/temptextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="fetching temp..."
-            android:paddingLeft="90dp"
-            android:textStyle="bold"
-            android:textColor="#000"
-            android:textSize="17sp"
-
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/uptimeTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Uptime"
-            android:textAlignment="textStart"
-            android:textColor="#000"
-            android:textSize="27sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/uptimetextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="90dp"
-            android:text="fetching uptime..."
-            android:textColor="#000"
-            android:textSize="17sp"
-            android:textStyle="bold"
-
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Date"
-            android:textAlignment="textStart"
-            android:textColor="#000"
-            android:textSize="27sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/dateTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="90dp"
-            android:text="fetching date..."
-            android:textColor="#000"
-            android:textSize="17sp"
-            android:textStyle="bold"
-
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Language"
-            android:textAlignment="textStart"
-            android:textColor="#000"
-            android:textSize="27sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/languagetextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="90dp"
-            android:text="fetching language..."
-            android:textColor="#000"
-            android:textSize="17sp"
-            android:textStyle="bold"
-
-            />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="15dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Traffic"
-            android:textAlignment="textStart"
-            android:textColor="#000"
-            android:textSize="27sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/traffictextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="90dp"
-            android:text="fetching traffic..."
-            android:textColor="#000"
-            android:textSize="17sp"
-            android:textStyle="bold"
-
-            />
-    </LinearLayout>
-
-
-</LinearLayout>
+</RelativeLayout>

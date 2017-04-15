@@ -44,6 +44,8 @@ public class ConnectionManager {
         Preconditions.checkNotNull(host, "The host cannot be null");
         Preconditions.checkNotNull(password, "The password cannot be null");
 
+        //TODO thro JschException and run without threadExecutor
+
         ISSHConnection[] connection = new ISSHConnection[]{null};
 
         threadExecutor.execute(new Runnable() {

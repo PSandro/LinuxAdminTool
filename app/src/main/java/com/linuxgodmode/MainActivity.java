@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.jcraft.jsch.JSchException;
 import com.linuxgodmode.business.ConnectionManager;
 import com.linuxgodmode.business.exception.ConnectionAlreadyInitializedException;
 import com.linuxgodmode.business.exception.ConnectionNotInitializedException;
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         this.inputUsername = (EditText) findViewById(R.id.in_user);
 
         this.connectButton.setEnabled(false);
+        this.disconnectButton.setEnabled(false);
 
         TextWatcher textChangeListener = new LoginTextChangedListener(this);
 
@@ -153,8 +155,14 @@ public class MainActivity extends AppCompatActivity {
                 ConnectionManager.getConnectionManager().initConnection(user, host, password, port);
             } catch (ConnectionAlreadyInitializedException e) {
                 sendPopup(e.getMessage());
+                return;
             } catch (InitialisationFailException e) {
                 sendPopup(e.getMessage());
+                return;
+            } catch (JSchException e) {
+                e.printStackTrace();
+                sendPopup(e.getMessage());
+                return;
             }
             setConnected(true);
             runOnUiThread(() -> {
@@ -165,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 initLoopCommands(ConnectionManager.getConnectionManager().getCommandManager());
             } catch (ConnectionNotInitializedException e) {
                 sendPopup(e.getMessage());
+                return;
             }
         }).start();
 

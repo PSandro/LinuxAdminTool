@@ -2,6 +2,7 @@ package com.linuxgodmode;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.google.common.base.Preconditions;
 import com.linuxgodmode.business.LinuxStatistic;
@@ -15,6 +16,7 @@ public class StatisticsActivity extends ListActivity implements CommandUpdateEve
 
 
     private static StatisticsAdapter statisticsAdapter;
+    private final Handler handler = new Handler();
 
     @Override
     public void update(LinuxCommand linuxCommand, long l, List<String> list) {
@@ -37,7 +39,7 @@ public class StatisticsActivity extends ListActivity implements CommandUpdateEve
 
 
         linuxStatistic.setValue(answer);
-        runOnUiThread(() -> {
+        this.handler.post(() -> {
             statisticsAdapter.notifyDataSetChanged();
         });
 
@@ -47,7 +49,7 @@ public class StatisticsActivity extends ListActivity implements CommandUpdateEve
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        runOnUiThread(() -> {
+        this.handler.post(() -> {
             statisticsAdapter = new StatisticsAdapter(this);
             setListAdapter(statisticsAdapter);
         });

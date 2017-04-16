@@ -1,5 +1,6 @@
 package com.linuxgodmode.login;
 
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 
@@ -14,10 +15,12 @@ public class LoginTextChangedListener implements TextWatcher {
 
 
     private final MainActivity mainActivity;
+    private final Handler handler;
 
     public LoginTextChangedListener(MainActivity mainActivity) {
         Preconditions.checkNotNull(mainActivity, "The mainActivity cannot be null");
         this.mainActivity = mainActivity;
+        this.handler = new Handler(mainActivity.getMainLooper());
     }
 
     @Override
@@ -33,7 +36,7 @@ public class LoginTextChangedListener implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         boolean valid = this.mainActivity.checkInputVadility();
-        mainActivity.runOnUiThread(() -> {
+        this.handler.post(() -> {
             this.mainActivity.connectButton.setEnabled(valid);
         });
 

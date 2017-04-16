@@ -1,20 +1,31 @@
 <resources>
     <string name="app_name">LinuxAdminTool</string>
 
-    <string name="login_input_ip">Address</string>
+    <string name="login_input_ip">Addresse</string>
     <string name="login_input_port">Port</string>
-    <string name="login_input_username">Username</string>
-    <string name="login_input_password">Password</string>
+    <string name="login_input_username">Benutzer</string>
+    <string name="login_input_password">Passwort</string>
 
-
-    <string name="login_text_ip">Address / Domain</string>
-    <string name="login_text_port">Port</string>
-    <string name="login_text_username">Username</string>
-    <string name="login_text_password">Password</string>
+    <string name="icon">Grafik</string>
 
     <string name="login_button_start">Connect</string>
     <string name="login_button_cancel">Disconnect</string>
 
     <string name="bn_terminal">Terminal</string>
-    <string name="bn_statistics">Statistics</string>
+    <string name="bn_statistics">Statistiken</string>
+    <string name="bn_functions">Funktionen</string>
+
+    <string name="not_connected">Nicht verbunden</string>
+    <string name="not_reachable">Server nicht erreichbar</string>
+    <string name="connected">verbunden</string>
+    <string name="disconnected">getrennt</string>
+
+
+    <string name="cpu_usage">CPU Auslastung</string>
+    <string name="hostname">Hostname</string>
+    <string name="temperature">Temperatur</string>
+    <string name="uptime">Laufzeit</string>
+    <string name="date">Uhrzeit</string>
+    <string name="language">Sprache</string>
+    <string name="traffic">Netzwerkauslastung</string>
 </resources>

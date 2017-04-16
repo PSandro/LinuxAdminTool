@@ -4,28 +4,29 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextWatcher;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import com.jcraft.jsch.JSchException;
 import com.linuxgodmode.business.ConnectionManager;
 import com.linuxgodmode.business.exception.ConnectionAlreadyInitializedException;
 import com.linuxgodmode.business.exception.ConnectionNotInitializedException;
 import com.linuxgodmode.business.exception.InitialisationFailException;
+import com.linuxgodmode.login.LoginTextChangedListener;
 
 import de.lsa.logic.CommandUpdateRegistry;
 import de.lsa.logic.ICommandManager;
 import de.lsa.logic.LinuxCommand;
 
 public class MainActivity extends AppCompatActivity {
-    private ListView SwypeList;
-    private ArrayAdapter<String> sAdapter;
-    private Handler popupHandler;
+    private Button buttonStatistics, buttonTerminal, buttonFunctions;
+    private EditText inputIpAdress, inputPort, inputUsername, inputPassword;
+    public Button connectButton, disconnectButton;
+
 
     @Override
     protected void onStart() {
@@ -33,56 +34,74 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private void enableButtons(boolean enable) {
+        this.buttonStatistics.setEnabled(enable);
+        this.buttonTerminal.setEnabled(enable);
+        this.buttonFunctions.setEnabled(enable);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //deklaration & initialisation
-        this.popupHandler = new Handler();
-        final Button buttonStatistics = (Button) findViewById(R.id.button_statistics);
-        final Button buttonTerminal = (Button) findViewById(R.id.button_terminal);
-        final Button functionsButton = (Button) findViewById(R.id.button_functions);
+        //init
+        this.buttonStatistics = (Button) findViewById(R.id.button_statistics);
+        this.buttonTerminal = (Button) findViewById(R.id.button_terminal);
+        this.buttonFunctions = (Button) findViewById(R.id.button_functions);
+
+        this.connectButton = (Button) findViewById(R.id.bn_start);
+        this.disconnectButton = (Button) findViewById(R.id.bn_stop);
+
+        this.inputIpAdress = (EditText) findViewById(R.id.in_ip);
+        this.inputPassword = (EditText) findViewById(R.id.in_pw);
+        this.inputPort = (EditText) findViewById(R.id.in_port);
+        this.inputUsername = (EditText) findViewById(R.id.in_user);
+
+        this.connectButton.setEnabled(false);
+        this.disconnectButton.setEnabled(false);
+
+        TextWatcher textChangeListener = new LoginTextChangedListener(this);
+
+        this.inputIpAdress.addTextChangedListener(textChangeListener);
+        this.inputPassword.addTextChangedListener(textChangeListener);
+        this.inputPort.addTextChangedListener(textChangeListener);
+        this.inputUsername.addTextChangedListener(textChangeListener);
 
 
-        buttonStatistics.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!ConnectionManager.getConnectionManager().isConnected()) {
-                    sendPopup("Not connected");
-                    return;
-                }
+        this.enableButtons(false);
 
-                Intent button2 = new Intent(MainActivity.this, StatisticsActivity.class);
-                startActivity(button2);
+        // Thread.setDefaultUncaughtExceptionHandler((paramThread, paramThrowable) -> {
+        //    Log.e("Error" + Thread.currentThread().getStackTrace()[2], paramThrowable.getLocalizedMessage());
+        //});
+
+        buttonStatistics.setOnClickListener(v -> {
+            if (!ConnectionManager.getConnectionManager().isConnected()) {
+                sendPopup(getString(R.string.not_connected));
+                return;
             }
+
+            Intent button2 = new Intent(MainActivity.this, StatisticsActivity.class);
+            startActivity(button2);
         });
 
-        buttonTerminal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!ConnectionManager.getConnectionManager().isConnected()) {
-                    sendPopup("Not connected");
-                    return;
-                }
-                Intent button = new Intent(MainActivity.this, TerminalActivity.class);
-                startActivity(button);
+        buttonTerminal.setOnClickListener(v -> {
+            if (!ConnectionManager.getConnectionManager().isConnected()) {
+                sendPopup(getString(R.string.not_connected));
+                return;
             }
-
+            Intent button = new Intent(MainActivity.this, TerminalActivity.class);
+            startActivity(button);
         });
 
 
-        functionsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!ConnectionManager.getConnectionManager().isConnected()) {
-                    sendPopup("Not connected");
-                    return;
-                }
-                Intent functionsButton = new Intent(MainActivity.this, FunctionsActivity.class);
-                startActivity(functionsButton);
+        buttonFunctions.setOnClickListener(v -> {
+            if (!ConnectionManager.getConnectionManager().isConnected()) {
+                sendPopup(getString(R.string.not_connected));
+                return;
             }
-
+            Intent functionsButton = new Intent(MainActivity.this, FunctionsActivity.class);
+            startActivity(functionsButton);
         });
 
 
@@ -90,72 +109,74 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public boolean checkInputVadility() {
+        String host = this.inputIpAdress.getText().toString();
+        String raw_port = this.inputPort.getText().toString();
+        String user = this.inputUsername.getText().toString();
+        String password = this.inputPassword.getText().toString();
+
+        if (host.isEmpty()) {
+            return false;
+        }
+        if (raw_port.isEmpty()) {
+            return false;
+        }
+        if (user.isEmpty()) {
+            return false;
+        }
+        if (password.isEmpty()) {
+            return false;
+        }
+
+        try {
+            Integer.valueOf(raw_port);
+        } catch (NumberFormatException exc) {
+            return false;
+        }
+        return true;
+    }
+
     public void saveVar(View view) {
         if (view == null) {
             return;
         }
-        EditText in_ip = (EditText) findViewById(R.id.in_ip);
-        EditText in_port = (EditText) findViewById(R.id.in_port);
-        EditText in_user = (EditText) findViewById(R.id.in_user);
-        EditText in_pw = (EditText) findViewById(R.id.in_pw);
-
-        String host = in_ip.getText().toString();
-        String raw_port = in_port.getText().toString();
-        String user = in_user.getText().toString();
-        String password = in_pw.getText().toString();
-        Integer port = null;
-
-        if (host.isEmpty()) {
-            sendPopup("The host cannot be empty!");
-            return;
-        }
-        if (raw_port.isEmpty()) {
-            sendPopup("The port cannot be empty!");
-            return;
-        }
-        if (user.isEmpty()) {
-            sendPopup("The user cannot be empty!");
-            return;
-        }
-        if (password.isEmpty()) {
-            sendPopup("The password cannot be empty!");
-            return;
-        }
-
-        try {
-            port = Integer.valueOf(raw_port);
-        } catch (NumberFormatException exc) {
-            sendPopup("The port has to be a number");
-        }
-
+        String host = this.inputIpAdress.getText().toString();
+        int port = Integer.valueOf(this.inputPort.getText().toString());
+        String user = this.inputUsername.getText().toString();
+        String password = this.inputPassword.getText().toString();
 
         if (ConnectionManager.getConnectionManager().isConnected()) {
             sendPopup("Please close the running connection first!");
             return;
         }
 
-        Integer finalPort = port;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    ConnectionManager.getConnectionManager().initConnection(user, host, password, finalPort);
-                } catch (ConnectionAlreadyInitializedException e) {
-                    sendPopup(e.getMessage());
-                    finish();
-                } catch (InitialisationFailException e) {
-                    sendPopup(e.getMessage());
-                    finish();
-                }
-                setConnected(true);
-                try {
-                    initLoopCommands(ConnectionManager.getConnectionManager().getCommandManager());
-                } catch (ConnectionNotInitializedException e) {
-                    sendPopup(e.getMessage());
-                    finish();
-                }
+        new Thread(() -> {
+            try {
+                ConnectionManager.getConnectionManager().initConnection(user, host, password, port);
+            } catch (ConnectionAlreadyInitializedException e) {
+                sendPopup(e.getMessage());
+                return;
+            } catch (InitialisationFailException e) {
+                sendPopup(e.getMessage());
+                return;
+            } catch (JSchException e) {
+                e.printStackTrace();
+                sendPopup(e.getMessage());
+                return;
+            }
+            setConnected(true);
+            runOnUiThread(() -> {
+                this.connectButton.setEnabled(false);
+                this.disconnectButton.setEnabled(true);
+            });
+            try {
+                initLoopCommands(ConnectionManager.getConnectionManager().getCommandManager());
+            } catch (ConnectionNotInitializedException e) {
+                sendPopup(e.getMessage());
+                return;
             }
         }).start();
+
     }
 
     private void initLoopCommands(ICommandManager commandManager) {
@@ -171,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
     public void disconnect(View view) {
         ConnectionManager connectionManager = ConnectionManager.getConnectionManager();
         if (!connectionManager.isConnected()) {
-            sendPopup("Not connected");
+            sendPopup(getString(R.string.not_connected));
         } else {
 
             try {
@@ -181,27 +202,24 @@ public class MainActivity extends AppCompatActivity {
                 sendPopup(e.getMessage());
             }
             setConnected(false);
+            runOnUiThread(() -> {
+                this.disconnectButton.setEnabled(false);
+                this.connectButton.setEnabled(true);
+            });
         }
     }
 
     private void sendPopup(String message) {
         final Context context = this;
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                new AlertDialog.Builder(context).setMessage(message).create().show();
-            }
-        });
+        runOnUiThread(() -> new AlertDialog.Builder(context).setMessage(message).create().show());
 
     }
 
     public void setConnected(boolean status) {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                final TextView connectionTextView = (TextView) findViewById(R.id.connectedView);
-                connectionTextView.setText(status ? "connected" : "disconnected");
-            }
+        runOnUiThread(() -> {
+            this.enableButtons(status);
+            final TextView connectionTextView = (TextView) findViewById(R.id.connectedView);
+            connectionTextView.setText(status ? getString(R.string.connected) : getString(R.string.disconnected));
         });
     }
 }

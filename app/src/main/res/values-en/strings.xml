@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LinuxAdminTool</string>
+    <string name="bn_functions">functions</string>
+    <string name="bn_statistics">statistics</string>
+    <string name="bn_terminal">shell</string>
+    <string name="connected">connected</string>
+    <string name="cpu_usage">cpu usage</string>
+    <string name="date">time</string>
+    <string name="disconnected">disconnected</string>
+    <string name="hostname">hostname</string>
+    <string name="icon">icon</string>
+    <string name="language">language</string>
+    <string name="login_button_cancel">disconnect</string>
+    <string name="login_button_start">connect</string>
+    <string name="login_input_ip">adress</string>
+    <string name="login_input_password">password</string>
+    <string name="login_input_port">port</string>
+    <string name="login_input_username">username</string>
+    <string name="not_connected">not connected</string>
+    <string name="not_reachable">server not reachable</string>
+    <string name="temperature">temperature</string>
+    <string name="traffic">traffic</string>
+    <string name="uptime">uptime</string>
+</resources>

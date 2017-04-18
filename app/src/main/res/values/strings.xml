@@ -8,8 +8,8 @@
 
     <string name="icon">Grafik</string>
 
-    <string name="login_button_start">Connect</string>
-    <string name="login_button_cancel">Disconnect</string>
+    <string name="login_button_start">Verbinden</string>
+    <string name="login_button_cancel">Trennen</string>
 
     <string name="bn_terminal">Terminal</string>
     <string name="bn_statistics">Statistiken</string>

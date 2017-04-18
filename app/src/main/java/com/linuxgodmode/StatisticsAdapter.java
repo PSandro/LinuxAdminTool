@@ -33,13 +33,13 @@ public class StatisticsAdapter extends BaseAdapter {
     }
 
     private void initLinuxStatistics() {
-        this.linuxStatistics.put(LinuxCommand.CPU_USAGE, new LinuxStatistic(R.drawable.statisticicon, R.string.cpu_usage, "0.0", "%"));
-        this.linuxStatistics.put(LinuxCommand.HOSTNAME, new LinuxStatistic(R.drawable.statisticicon, R.string.hostname, "...", ""));
-        this.linuxStatistics.put(LinuxCommand.TEMPERATURE, new LinuxStatistic(R.drawable.statisticicon, R.string.temperature, "0.0", "°C"));
-        this.linuxStatistics.put(LinuxCommand.UPTIME, new LinuxStatistic(R.drawable.statisticicon, R.string.uptime, "0", "m"));
-        this.linuxStatistics.put(LinuxCommand.DATE, new LinuxStatistic(R.drawable.statisticicon, R.string.date, "...", ""));
-        this.linuxStatistics.put(LinuxCommand.LANGUAGE, new LinuxStatistic(R.drawable.statisticicon, R.string.language, "...", ""));
-        this.linuxStatistics.put(LinuxCommand.TRAFFIC, new LinuxStatistic(R.drawable.statisticicon, R.string.traffic, "0.0  0.0", "kb/s"));
+        this.linuxStatistics.put(LinuxCommand.CPU_USAGE, new LinuxStatistic(R.drawable.cpu_usage, R.string.cpu_usage, "0.0", "%"));
+        this.linuxStatistics.put(LinuxCommand.HOSTNAME, new LinuxStatistic(R.drawable.hostname, R.string.hostname, "...", ""));
+        this.linuxStatistics.put(LinuxCommand.TEMPERATURE, new LinuxStatistic(R.drawable.temperature, R.string.temperature, "0.0", "°C"));
+        this.linuxStatistics.put(LinuxCommand.UPTIME, new LinuxStatistic(R.drawable.uptime, R.string.uptime, "0", "m"));
+        this.linuxStatistics.put(LinuxCommand.DATE, new LinuxStatistic(R.drawable.date, R.string.date, "...", ""));
+        this.linuxStatistics.put(LinuxCommand.LANGUAGE, new LinuxStatistic(R.drawable.language, R.string.language, "...", ""));
+        this.linuxStatistics.put(LinuxCommand.TRAFFIC, new LinuxStatistic(R.drawable.traffic, R.string.traffic, "0.0  0.0", "kb/s"));
 
     }
 
